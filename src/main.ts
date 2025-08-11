@@ -14,10 +14,10 @@ async function main()
     const query = url.searchParams.get('q')?.trim() ?? '';
 
     // If the server is configured correctly, requests without 'q' won't reach here, because the server returns HTTP 500.
-    // If they do reach here, we just log and do nothing.
+    // If they do reach here, we just go back.
     if (!query)
     {
-        console.error('Missing q parameter - server should\'ve returned 500.');
+        window.history.back();
     }
     else
     {
