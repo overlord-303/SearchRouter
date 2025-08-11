@@ -104,7 +104,12 @@ table.bangs-table tr:nth-child(even) {
     table.bangs-table tr,
     table.bangs-table td {
         display: block;
-        width: 100%;
+        min-width: unset;
+        overflow: hidden;
+    }
+
+    table.bangs-table td[data-label="website"] {
+        overflow-x: scroll
     }
 
     table.bangs-table tr {

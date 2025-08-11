@@ -10,12 +10,12 @@ export const bangs: Record<string, Bang> = {
     // google (-related)
     g: {
         bang: 'g',
-        url: 'https://www.google.com/search?q={{{s}}}',
+        url:  'https://www.google.com/search?q={{{s}}}',
         root: 'www.google.com'
     },
     google: {
         bang: 'google',
-        url: 'https://www.google.com/search?q={{{s}}}',
+        url:  'https://www.google.com/search?q={{{s}}}',
         root: 'www.google.com'
     },
     gi: {
@@ -84,17 +84,17 @@ export const bangs: Record<string, Bang> = {
     },
     ddgn: {
         bang: 'ddgn',
-        url:  'http://duckduckgo.com/?q={{{s}}}&iar=news&ia=news',
+        url:  'https://duckduckgo.com/?q={{{s}}}&iar=news&ia=news',
         root: 'duckduckgo.com'
     },
     yh: {
         bang: 'yh',
-        url:  'http://search.yahoo.com/search?p={{{s}}}',
+        url:  'https://search.yahoo.com/search?p={{{s}}}',
         root: 'search.yahoo.com'
     },
     yahoo: {
         bang: 'yahoo',
-        url:  'http://search.yahoo.com/search?p={{{s}}}',
+        url:  'https://search.yahoo.com/search?p={{{s}}}',
         root: 'search.yahoo.com'
     },
     
@@ -137,7 +137,6 @@ export const bangs: Record<string, Bang> = {
         root: 'twitch.tv'
     },
 
-
     n: {
         bang: 'n',
         url:  'https://www.netflix.com/search?q={{{s}}}',
@@ -145,12 +144,12 @@ export const bangs: Record<string, Bang> = {
     },
     cr: {
         bang: 'cr',
-        url:  'http://www.crunchyroll.com/search?q={{{s}}}',
+        url:  'https://www.crunchyroll.com/search?q={{{s}}}',
         root: 'www.crunchyroll.com'
     },
     prime: {
         bang: 'prime',
-        url:  'https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Dprime-instant-video&field-keywords={{{s}}}',
+        url:  'https://www.amazon.de/gp/video/search?phrase={{{s}}}',
         root: 'www.amazon.com'
     },
 
@@ -170,16 +169,15 @@ export const bangs: Record<string, Bang> = {
         root: 'music.youtube.com'
     },
 
-
     // wikis
     w: {
         bang: 'w',
-        url:  'http://en.wikipedia.org/wiki/Special:Search?search={{{s}}}&go=Go',
+        url:  'https://en.wikipedia.org/wiki/Special:Search?search={{{s}}}&go=Go',
         root: 'en.wikipedia.org'
     },
     wiki: {
         bang: 'wiki',
-        url:  'http://en.wikipedia.org/wiki/Special:Search?search={{{s}}}&go=Go',
+        url:  'https://en.wikipedia.org/wiki/Special:Search?search={{{s}}}&go=Go',
         root: 'en.wikipedia.org'
     },
     wh: {
@@ -199,7 +197,7 @@ export const bangs: Record<string, Bang> = {
     },
     duden: {
         bang: 'duden',
-        url:  'http://www.duden.de/suchen/dudenonline/{{{s}}}',
+        url:  'https://www.duden.de/suchen/dudenonline/{{{s}}}',
         root: 'www.duden.de'
     },
 
@@ -218,17 +216,16 @@ export const bangs: Record<string, Bang> = {
     // maps
     m: {
         bang: 'm',
-        url:  'http://maps.google.com/maps?q={{{s}}}',
+        url:  'https://maps.google.com/maps?q={{{s}}}',
         root: 'maps.google.com'
     },
     gm: {
         bang: 'gm',
-        url:  'http://maps.google.com/maps?q={{{s}}}',
+        url:  'https://maps.google.com/maps?q={{{s}}}',
         root: 'maps.google.com'
     },
 
     // ai
-
     gpt: {
         bang: 'gpt',
         url:  'https://chatgpt.com/?q={{{s}}}',
@@ -264,7 +261,7 @@ export const bangs: Record<string, Bang> = {
 
     ghc: {
         bang: 'ghc',
-        url:  'https://github.com/search?utf8=✓&q={{{s}}}&type=Code',
+        url:  'https://github.com/search?utf8=%E2%9C%93&q={{{s}}}&type=Code',
         root: 'github.com'
     },
     ghr: {
@@ -291,7 +288,7 @@ export const bangs: Record<string, Bang> = {
 
     mdn: {
         bang: 'mdn',
-        url:  'https://developer.mozilla.org/en-US/search?q={{{s}}}',
+        url:  'https://developer.mozilla.org/search?q={{{s}}}',
         root: 'developer.mozilla.org'
     },
     js: {
@@ -309,7 +306,6 @@ export const bangs: Record<string, Bang> = {
         url:  'https://docs.oracle.com/apps/search/search.jsp?q={{{s}}}&category=java',
         root: 'docs.oracle.com'
     },
-
 
     npm: {
         bang: 'npm',
