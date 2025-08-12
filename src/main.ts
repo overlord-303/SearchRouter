@@ -3,7 +3,7 @@ import { registerSW } from 'virtual:pwa-register';
 import {
     DEFAULT_BANG,
     bDefault,
-    bangs
+    bangs, Bang
 } from './bangs';
 
 async function main()
@@ -13,12 +13,11 @@ async function main()
     const url   = new URL(window.location.href);
     const query = url.searchParams.get('q')?.trim() ?? '';
 
-    // If the server is configured correctly, requests without 'q' won't reach here, because the server returns HTTP 500.
-    // If they do reach here, we just go back.
+    // Without query, display pre-rendered bangs table.
     if (!query)
     {
         // @ts-ignore
-        window.document.querySelector('#bangs-prerender').style.display = 'none';
+        window.document.querySelector('#bangs-prerender').style.display = 'unset';
         return;
     }
     else
