@@ -1,25 +1,28 @@
+import { type Bang, bDefault, bangs } from '../src/bangs';
 import { register } from 'esbuild-register/dist/node';
-import { fileURLToPath } from 'url';
-import {
-    type Bang,
-    bDefault,
-    bangs
-} from '../src/bangs';
+import { __dirname, log } from './util';
 
-import path from 'path';
-import fs   from 'fs';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname  = path.dirname(__filename);
+import colors  from 'picocolors';
+import path    from 'path';
+import fs      from 'fs';
 
 register();
 
 const DIST_DIR = path.resolve(__dirname, '../dist');
 const INDEX_FL = path.resolve(DIST_DIR, 'index.html');
 
+// --
+
+log('', `${colors.cyan('pre-renderer v1.0.0')} ${colors.green('building html...')}`);
+
 if (!fs.existsSync(INDEX_FL))
 {
-    console.error('dist/index not found - run vite build first');
+    log(
+        'Unable to find',
+        `  ${colors.dim('dist/') + colors.green('index.html')}`,
+        `please run - ${colors.magenta('vite build')} first.`
+    );
+
     process.exit(1);
 }
 
@@ -65,7 +68,7 @@ function generateBangsHTML(defaultBang: Bang, bangs: Record<string, Bang>): stri
         {
             const bang = bangs[b];
 
-            return `<a class="bang-link" href="${escapeHTML(`https://${bang.root}/`)}" target="_blank" rel="noopener noreferrer">${escapeHTML(b)}</a>`;
+            return `<a class="bang-link ${(defaultBang.bang === b) ? ' default-bang' : ''}" href="${escapeHTML(`https://${bang.root}/`)}" target="_blank" rel="noopener noreferrer">${escapeHTML(b)}</a>`;
         }).join(', ');
 
         return `
@@ -111,10 +114,17 @@ if (html.includes('<!-- BANGS_PRERENDER_PLACEHOLDER -->'))
         'utf8'
     );
 
-    console.log('Injected bangs prerender into dist/index.html');
+    log(
+        'Injected pre-rendered HTML-Table into',
+        `  ${colors.dim('dist/') + colors.green('index.html')}`
+    );
 }
 else
 {
-    console.error('Placeholder not found in dist/index.html');
+    log(
+        'Unable to find placeholder in',
+        `  ${colors.dim('dist/') + colors.green('index.html')}`,
+    );
+
     process.exit(1);
 }
