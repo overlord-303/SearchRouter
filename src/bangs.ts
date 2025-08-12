@@ -312,11 +312,6 @@ export const bangs: Record<string, Bang> = {
         url:  'https://www.npmjs.com/search?q={{{s}}}',
         root: 'www.npmjs.com'
     },
-    npms: {
-        bang: 'npms',
-        url:  'https://npmsearch.com/?q={{{s}}}',
-        root: 'npmsearch.com'
-    },
     yarn: {
         bang: 'yarn',
         url:  'https://yarnpkg.com/en/packages?q={{{s}}}',
