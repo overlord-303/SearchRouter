@@ -51,20 +51,21 @@ function replaceUrl(
 
 function generateBangsHTML(defaultBang: Bang, bangs: Record<string, Bang>): string
 {
-    const grouped: Record<string, string[]> = {};
+    const grouped: Record<string, { root: string, bangs: string[] }> = {};
 
     for (const b in bangs)
     {
         const bang = bangs[b];
 
-        if (!grouped[bang.url]) grouped[bang.url] = [];
+        if (!grouped[bang.url])
+            grouped[bang.url] = { root: bang.root, bangs: [] };
 
-        grouped[bang.url].push(bang.bang);
+        grouped[bang.url].bangs.push(bang.bang);
     }
 
-    const rows = Object.entries(grouped).map(([url, list]) =>
+    const rows = Object.entries(grouped).map(([url, data]) =>
     {
-        const links = list.map(b =>
+        const links = data.bangs.map(b =>
         {
             const bang = bangs[b];
 
@@ -74,6 +75,7 @@ function generateBangsHTML(defaultBang: Bang, bangs: Record<string, Bang>): stri
         return `
             <tr>
                 <td data-label="bang">${links}</td>
+                <td data-label="root">${escapeHTML(data.root)}</td>
                 <td data-label="website"><span class="url">${replaceUrl(url)}</span></td>
             </tr>
         `;
@@ -88,12 +90,11 @@ function generateBangsHTML(defaultBang: Bang, bangs: Record<string, Bang>): stri
                     <div class="default-url">${replaceUrl(defaultBang.root)}</div>
                 </div>
             </div>
-    
             <div class="table-wrap">
                 <table class="bangs-table" role="grid" aria-label="Search Bangs Table">
-                    <thead><tr><th>bang</th><th>website</th></tr></thead>
+                    <thead><tr><th>bang</th><th>root</th><th>website</th></tr></thead>
                     <tbody>
-                        ${rows}
+                        ${rows.join('')}
                     </tbody>
                 </table>
             </div>
