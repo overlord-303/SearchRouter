@@ -7,6 +7,7 @@ import { NavigationRoute, registerRoute } from 'workbox-routing';
 
 self.addEventListener('install', (ev) =>
 {
+    // noinspection JSIgnoredPromiseFromCall
     self.skipWaiting();
 });
 

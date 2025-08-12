@@ -1,16 +1,15 @@
 {
   "name": "banger-searchrouter",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "private": true,
   "scripts": {
-    "dev":          "vite",
-    "build":        "npm run build:main && npm run build:static",
-    "build:main":   "tsc && vite build",
-    "build:static": "tsc && vite build --config static/vite.config.ts"
+    "dev":   "vite",
+    "build": "tsc && vite build && node scripts/prerender.js"
   },
   "devDependencies": {
-    "vite":            "^5.0.0",
-    "typescript":      "^5.0.0",
-    "vite-plugin-pwa": "^1.0.2"
+    "vite":             "^5.0.0",
+    "typescript":       "^5.0.0",
+    "vite-plugin-pwa":  "^1.0.2",
+    "esbuild-register": "^3.6.0"
   }
 }

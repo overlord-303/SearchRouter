@@ -17,7 +17,9 @@ async function main()
     // If they do reach here, we just go back.
     if (!query)
     {
-        window.history.back();
+        // @ts-ignore
+        window.document.querySelector('#bangs-prerender').style.display = 'none';
+        return;
     }
     else
     {
