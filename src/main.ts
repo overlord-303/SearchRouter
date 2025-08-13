@@ -22,28 +22,34 @@ async function main()
     }
     else
     {
-        const defaultBang      = localStorage.getItem('default-bang') ?? DEFAULT_BANG;
-        const defaultBangEntry = bangs[defaultBang] ?? bDefault;
+        const matches = Array.from(query.matchAll(/!(\S+)/gi));
 
-        const match         = query.match(/!(\S+)/i);
-        const bangCandidate = match?.[1]?.toLowerCase();
-        const selectedBang  = (bangCandidate && bangs[bangCandidate]) ? bangs[bangCandidate] : defaultBangEntry;
+        let bang        = bDefault;
+        let cleanQuery;
 
-        const cleanQuery = query.replace(/!\S+\s*/i, '').trim();
+        for (const [_, candidate] of matches)
+        {
+            if (bangs[candidate.toLowerCase()])
+            {
+                bang       = bangs[candidate.toLowerCase()];
+                cleanQuery = query.replace(`!${bang.bang}`, '').trim();
+                break;
+            }
+        }
 
         if (!cleanQuery)
         {
             // If the query is just '!gh', go to domain root.
-            if (selectedBang) window.location.replace(`https://${selectedBang.root}`);
+            window.location.replace(`https://${bang.root}`);
         }
         else
         {
-            const searchUrl = selectedBang.url.replace(
+            const searchUrl = bang.url.replace(
                 '{{{s}}}',
                 encodeURIComponent(cleanQuery).replace(/%2F/g, '/')
             );
 
-            if (searchUrl) window.location.replace(searchUrl);
+            window.location.replace(searchUrl);
         }
     }
 }

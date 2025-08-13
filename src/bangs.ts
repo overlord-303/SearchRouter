@@ -6,6 +6,8 @@ export type Bang = {
     root: string
 };
 
+export const DEFAULT_BANG = 'g';
+
 export const bangs: Record<string, Bang> = {
     // google (-related)
     g: {
@@ -344,7 +346,7 @@ export const bangs: Record<string, Bang> = {
     // misc
     wtl: {
         bang: 'wtl',
-        url:  'https://whatthefuckshouvldilistentorightnow.com/artist.php?artist={{{s}}}',
+        url:  'https://whatthefuckshouldilistentorightnow.com/artist.php?artist={{{s}}}',
         root: 'whatthefuckshouldilistentorightnow.com'
     },
     wte: {
@@ -364,10 +366,4 @@ export const bangs: Record<string, Bang> = {
     },
 };
 
-export const bDefault: Bang = {
-    bang: 'google',
-    url:  'https://www.google.com/search?q={{{s}}}',
-    root: 'www.google.com'
-};
-
-export const DEFAULT_BANG = 'g';
+export const bDefault: Bang = bangs[DEFAULT_BANG];

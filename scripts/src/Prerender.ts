@@ -1,29 +1,21 @@
 import { type Bang } from '../../src/bangs';
-import colors        from "picocolors";
-import fs            from "fs";
+import colors        from 'picocolors';
+import path          from 'path';
+import fs            from 'fs';
 
 export class Prerender
 {
-    private readonly dist: string;
     private readonly file: string;
+    private readonly dist: string;
 
-    constructor({ dist, file }: { dist: string; file: string })
+    constructor({ file }: { file: string })
     {
         this.log('', `${colors.cyan('pre-renderer v1.0.1')} ${colors.green('building html...')}`);
 
-        this.validateDist(dist);
-
-        this.dist = dist;
         this.file = file;
-    }
+        this.dist = path.dirname(this.file);
 
-    private replaceUrl(
-        url:         string,
-        placeholder: string|RegExp = '{{{s}}}',
-        replace:     string        = '<span class="query">query</span>'
-    ): string
-    {
-        return this.escapeHTML(url).replace(placeholder, replace);
+        this.validateDist(this.dist);
     }
 
     public inject(html: string): void
@@ -114,13 +106,24 @@ export class Prerender
         );
     }
 
+    private replaceUrl(
+        url:         string,
+        placeholder: string|RegExp = '{{{s}}}',
+        replace:     string        = '<span class="query">query</span>'
+    ): string
+    {
+        return this.escapeHTML(url).replace(placeholder, replace);
+    }
+
     private validateDist(dist: string): void
     {
         if (fs.existsSync(dist)) return;
 
+        const { dir, file } = this.getShortenedPaths();
+
         this.log(
             'Unable to find',
-            `  ${colors.dim('dist/') + colors.green('index.html')}`,
+            `  ${colors.dim(dir + '/')}${colors.green(file)}`,
             `please run - ${colors.magenta('vite build')} first.`
         );
 
@@ -131,12 +134,22 @@ export class Prerender
     {
         if (html.includes('<!-- BANGS_PRERENDER_PLACEHOLDER -->')) return;
 
+        const { dir, file } = this.getShortenedPaths();
+
         this.log(
             'Unable to find placeholder in',
-            `  ${colors.dim('dist/') + colors.green('index.html')}`,
+            `  ${colors.dim(dir + '/')}${colors.green(file)}`,
         );
 
         process.exit(1);
+    }
+
+    private getShortenedPaths(): { dir: string, file: string }
+    {
+        return {
+            dir:  path.basename(this.dist),
+            file: path.basename(this.file)
+        }
     }
 
     private log(...msg: string[]): void
