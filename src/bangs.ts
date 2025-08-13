@@ -1,5 +1,3 @@
-// noinspection HttpUrlsUsage
-
 export type Bang = {
     bang: string,
     url:  string,

@@ -1,10 +1,40 @@
 // src/main.ts
-import { registerSW } from 'virtual:pwa-register';
-import type { Bang }  from './bangs';
+import type { Bang } from './bangs';
+
+const BANG_REGEX: RegExp = /!(\S+)/g;
+
+function findValidBang(query: string, bangs: Readonly<Record<string, Bang>>): { bang: Bang; query: string; } | null
+{
+    BANG_REGEX.lastIndex = 0;
+
+    let match;
+
+    while ((match = BANG_REGEX.exec(query)) !== null)
+    {
+        const candidate = match[1].toLowerCase();
+        const bang = bangs[candidate];
+
+        if (bang)
+        {
+            return {
+                bang: bang,
+                query: query.replace(match[0], '').trim(),
+            };
+        }
+    }
+
+    return null;
+}
+
+function getReplacedUrl(url: string, placeholder: string|RegExp = '{{{s}}}', replace: string): string
+{
+    return url.replace(placeholder, encodeURIComponent(replace).replace(/%2F/g, '/'));
+}
 
 async function main()
 {
-    await (registerSW())(); // register SW (w/o having to manually visit '/')
+    import('virtual:pwa-register') // register SW (w/o having to manually visit '/')
+        .then(m => m.registerSW?.())
 
     const url   = new URL(window.location.href);
     const query = url.searchParams.get('q')?.trim() ?? '';
@@ -12,45 +42,32 @@ async function main()
     // Without query, display pre-rendered bangs table.
     if (!query)
     {
-        // @ts-ignore
-        window.document.querySelector('#bangs-prerender').style.display = 'unset';
+        document.getElementById('bangs-prerender')!.style.display = 'unset';
         return;
     }
     else
     {
-        const { bDefault, bangs } = await import('./bangs') as any;
+        const { bDefault, bangs } = await import('./bangs') as {
+            bDefault: Bang;
+            bangs:    Readonly<Record<string, Bang>>;
+        };
 
-        const matches = Array.from(query.matchAll(/!(\S+)/gi));
+        const result = findValidBang(query, bangs);
 
-        let bang: Bang = bDefault;
-        let cleanQuery = query;
+        let url;
 
-        for (const [_, candidate] of matches)
+        if (!result)
         {
-            const key = candidate.toLowerCase();
-
-            if (bangs[key])
-            {
-                bang       = bangs[key];
-                cleanQuery = query.replace(`!${bang.bang}`, '').trim();
-                break;
-            }
-        }
-
-        if (!cleanQuery)
-        {
-            // If the query is just '!gh', go to domain root.
-            window.location.replace(`https://${bang.root}`);
+            url = getReplacedUrl(bDefault.url, '{{{s}}}', query);
         }
         else
         {
-            const searchUrl = bang.url.replace(
-                '{{{s}}}',
-                encodeURIComponent(cleanQuery).replace(/%2F/g, '/')
-            );
-
-            window.location.replace(searchUrl);
+            url = (result.query)
+                ? getReplacedUrl(result.bang.url, '{{{s}}}', result.query)
+                : `https://${result.bang.root}`;
         }
+
+        window.location.replace(url);
     }
 }
 
