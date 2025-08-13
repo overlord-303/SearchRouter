@@ -1,9 +1,9 @@
 // src/main.ts
 import { registerSW } from 'virtual:pwa-register';
 import {
-    DEFAULT_BANG,
+    type Bang,
     bDefault,
-    bangs, Bang
+    bangs
 } from './bangs';
 
 async function main()
@@ -24,14 +24,16 @@ async function main()
     {
         const matches = Array.from(query.matchAll(/!(\S+)/gi));
 
-        let bang        = bDefault;
-        let cleanQuery;
+        let bang: Bang = bDefault;
+        let cleanQuery = query;
 
         for (const [_, candidate] of matches)
         {
-            if (bangs[candidate.toLowerCase()])
+            const key = candidate.toLowerCase();
+
+            if (bangs[key])
             {
-                bang       = bangs[candidate.toLowerCase()];
+                bang       = bangs[key];
                 cleanQuery = query.replace(`!${bang.bang}`, '').trim();
                 break;
             }
