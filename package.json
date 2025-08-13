@@ -1,11 +1,11 @@
 {
   "name":    "banger-searchrouter",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "private": true,
   "scripts": {
     "dev":    "tsc && vite",
-    "build":  "tsc && vite build && node --no-warnings --loader ts-node/esm scripts/prerender.ts",
-    "render": "node --no-warnings --loader ts-node/esm scripts/prerender.ts"
+    "build":  "tsc && vite build && node --no-warnings --loader ts-node/esm scripts/runner.ts",
+    "render": "node --no-warnings --loader ts-node/esm scripts/runner.ts"
   },
   "devDependencies": {
     "vite":             "^5.0.0",
