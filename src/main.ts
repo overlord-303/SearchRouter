@@ -1,10 +1,6 @@
 // src/main.ts
 import { registerSW } from 'virtual:pwa-register';
-import {
-    type Bang,
-    bDefault,
-    bangs
-} from './bangs';
+import type { Bang }  from './bangs';
 
 async function main()
 {
@@ -22,6 +18,8 @@ async function main()
     }
     else
     {
+        const { bDefault, bangs } = await import('./bangs') as any;
+
         const matches = Array.from(query.matchAll(/!(\S+)/gi));
 
         let bang: Bang = bDefault;

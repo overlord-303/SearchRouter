@@ -8,7 +8,7 @@ export type Bang = {
 
 export const DEFAULT_BANG = 'g';
 
-export const bangs: Record<string, Bang> = {
+export const bangs: Readonly<Record<string, Bang>> = {
     // google (-related)
     g: {
         bang: 'g',
@@ -364,6 +364,6 @@ export const bangs: Record<string, Bang> = {
         url:  'https://web.archive.org/web/*/{{{s}}}',
         root: 'web.archive.org'
     },
-};
+} as const;
 
 export const bDefault: Bang = bangs[DEFAULT_BANG];
