@@ -1,14 +1,18 @@
 {
   "name":    "banger-searchrouter",
-  "version": "1.1.6",
+  "version": "2.0.0",
   "private": true,
+  "engines": {
+    "node": "^20.19.0",
+    "npm":  "^10.4.0"
+  },
   "scripts": {
     "dev":    "tsc && vite",
     "build":  "tsc && vite build && node --no-warnings --loader ts-node/esm scripts/runner.ts",
     "render": "node --no-warnings --loader ts-node/esm scripts/runner.ts"
   },
   "devDependencies": {
-    "vite":             "^5.0.0",
+    "vite":             "^7.1.2",
     "ts-node":          "^10.9.2",
     "typescript":       "^5.9.2",
     "@types/node":      "^24.2.1",
