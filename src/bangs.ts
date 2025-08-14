@@ -246,6 +246,16 @@ export const bangs: Readonly<Record<string, Bang>> = {
         url:  'https://gemini.google.com/app?q={{{s}}}',
         root: 'gemini.google.com'
     },
+    mst: {
+        bang: 'mst',
+        url:  'https://chat.mistral.ai/chat?q={{{s}}}',
+        root: 'chat.mistral.ai'
+    },
+    gcp: {
+        bang: 'gcp',
+        url:  'https://github.com/copilot?prompt={{{s}}}',
+        root: 'github.com'
+    },
 
     // development tools
     gh: {
