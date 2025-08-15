@@ -1,14 +1,14 @@
 {
-  "name": "banger-searchrouter",
-  "version": "2.0.4",
+  "name":    "banger-searchrouter",
+  "version": "2.0.5",
   "private": true,
   "engines": {
     "node": ">=20.19.0",
-    "npm": ">=10.4.0"
+    "npm":  ">=10.4.0"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build && tsx scripts/runner.ts",
+    "dev":    "vite",
+    "build":  "vite build && tsx scripts/runner.ts",
     "render": "tsx scripts/runner.ts"
   },
   "devDependencies": {

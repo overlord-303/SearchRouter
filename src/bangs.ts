@@ -4,9 +4,11 @@ export type Bang = {
     root: string
 };
 
+export type Bangs = Readonly<Record<string, Bang>>;
+
 export const DEFAULT_BANG = 'g';
 
-export const bangs: Readonly<Record<string, Bang>> = {
+export const bangs: Bangs = {
     // google (-related)
     g: {
         bang: 'g',
