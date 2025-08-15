@@ -1,5 +1,6 @@
 import { type Bang } from '../../src/bangs';
 import colors        from 'picocolors';
+import Error         from './Error';
 import path          from 'path';
 import fs            from 'fs';
 
@@ -124,10 +125,14 @@ export class Prerender
         this.log(
             'Unable to find',
             `  ${colors.dim(dir + '/')}${colors.green(file)}`,
-            `please run - ${colors.magenta('vite build')} first.`
+            `please run - ${colors.magenta('vite build')} first.`,
+            ''
         );
 
-        process.exit(1);
+        throw new Error(undefined, {
+            name: 'FileNotFound',
+            code: 'DIST_NOT_FOUND'
+        });
     }
 
     private validatePlaceholder(html: string): void
@@ -139,9 +144,13 @@ export class Prerender
         this.log(
             'Unable to find placeholder in',
             `  ${colors.dim(dir + '/')}${colors.green(file)}`,
+            ''
         );
 
-        process.exit(1);
+        throw new Error(undefined, {
+            name: 'InjectError',
+            code: 'PLACEHOLDER_NOT_FOUND'
+        });
     }
 
     private getShortenedPaths(): { dir: string, file: string }
