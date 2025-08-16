@@ -38,12 +38,6 @@ export default class Error extends globalThis.Error
         return this;
     }
 
-    public removeData(key: string): this
-    {
-        this._data.delete(key);
-        return this;
-    }
-
     public getData<T = any>(key?: string): T | Record<string, any> | undefined
     {
         if (key) return this._data.get(key);

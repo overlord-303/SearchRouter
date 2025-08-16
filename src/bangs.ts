@@ -149,6 +149,11 @@ export const bangs: Bangs = {
         url:  'https://www.crunchyroll.com/search?q={{{s}}}',
         root: 'www.crunchyroll.com'
     },
+    dp: {
+        bang: 'dp',
+        url:  'https://dplus.uno.gs/search/{{{s}}}', // use search-wrapper as no url searches exist with official disney+
+        root: 'www.disneyplus.com'
+    },
     prime: {
         bang: 'prime',
         url:  'https://www.amazon.de/gp/video/search?phrase={{{s}}}',

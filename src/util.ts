@@ -10,13 +10,13 @@ export function findValidBang(query: string, bangs: Bangs): { bang: Bang; query:
 
     while ((match = BANG_REGEX.exec(query)) !== null)
     {
-        const candidate = match[1].toLowerCase();
-        const bang = bangs[candidate];
+        const pMatch = match[1].toLowerCase();
+        const bang   = bangs[pMatch];
 
         if (bang)
         {
             return {
-                bang: bang,
+                bang:  bang,
                 query: query.replace(match[0], '').trim(),
             };
         }
