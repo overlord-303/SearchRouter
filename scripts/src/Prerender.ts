@@ -9,15 +9,18 @@ export class Prerender
     private readonly file: string;
     private readonly dist: string;
 
+    private readonly branch:  string;
     private readonly version: string;
 
-    constructor({ file, version }: { file: string, version?: string })
+    constructor({ file, version, branch }: { file: string, version?: string, branch?: string })
     {
         this.log('', `${colors.cyan('pre-renderer v1.0.2')} ${colors.green('building html...')}`);
 
         this.file    = file;
         this.dist    = path.dirname(this.file);
-        this.version = version ?? '0.0.0'
+
+        this.branch  = branch  ?? 'master';
+        this.version = version ?? '0.0.0';
 
         this.validateDist(this.dist);
     }
@@ -78,7 +81,7 @@ export class Prerender
         return `
         <div id="bangs-prerender" class="bangs-wrapper" style="display: none;" aria-hidden="true">
             <div class="default-block">
-                <div class="default-label">Default - v${this.version}</div>
+                <div class="default-label">Default - v${this.version}@${this.branch}</div>
                 <div class="default-content">
                     <a class="bang-link default-bang" href="${this.escapeHTML(`https://${defaultBang.root}/`)}" target="_blank" rel="noopener noreferrer">${this.escapeHTML(defaultBang.bang)}</a>
                     <div class="default-url">${this.replaceUrl(defaultBang.root)}</div>
@@ -93,7 +96,7 @@ export class Prerender
                 </table>
             </div>
         </div>
-  `;
+      `;
     }
 
     private escapeHTML(str: string = ''): string

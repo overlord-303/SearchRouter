@@ -1,3 +1,4 @@
+import { execSync } from "child_process";
 import { fileURLToPath } from 'url';
 import path from "path";
 import fs from "fs";
@@ -11,3 +12,5 @@ export const version = JSON.parse(
         'utf8'
     )
 ).version;
+
+export const branch = (() => execSync("git branch --show-current").toString().trim() || 'master')();
